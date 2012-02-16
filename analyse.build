@@ -1,12 +1,13 @@
 <project name="Analyse" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
   <target name="run-unit-tests">
     <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
+	<property name="source-root" value="src" overwrite="false"/>
     
 	<fileset id="unit-test-dlls">
-	  <include name="**/*.Test.dll" />
-	  <include name="**/*.Tests.dll" />
-	  <exclude name="**/*Integration*.dll" />
-	  <exclude name="**/*.Selenium*.dll" />
+	  <include name="${source-root}/**/*.Test.dll" />
+	  <include name="${source-root}/**/*.Tests.dll" />
+	  <exclude name="${source-root}/**/*Integration*.dll" />
+	  <exclude name="${source-root}/**/*.Selenium*.dll" />
 	</fileset>
 	
 	<foreach item="File" property="test-dll">
