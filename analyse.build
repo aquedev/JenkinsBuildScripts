@@ -1,0 +1,24 @@
+<project name="Analyse" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
+  <target name="run-unit-tests">
+    <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
+    
+	<fileset id="unit-test-dlls">
+	  <include name="**/*.Test.dll" />
+	  <include name="**/*.Tests.dll" />
+	  <exclude name="**/*Integration*.dll" />
+	  <exclude name="**/*.Selenium*.dll" />
+	</fileset>
+	
+	<foreach item="File" property="test-dll">
+	  <in>
+		<items refid="unit-test-dlls" />
+	  </in>
+	  <do>
+		<echo message="Running tests in ${test-dll}" />
+		<exec program="${test-runner-path}">
+		  <arg value="${test-dll}" />      
+		</exec>		
+	  </do>
+	</foreach>
+  </target>          
+</project>
