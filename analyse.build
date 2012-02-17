@@ -1,18 +1,40 @@
 <project name="Analyse" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
-  <target name="run-unit-tests">
-    <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
-	<property name="source-root" value="src" overwrite="false"/>
-    
-	<fileset id="unit-test-dlls">
+  <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
+  <property name="source-root" value="src" overwrite="false"/>
+  
+ <target name="run-unit-tests">    
+	<fileset id="test-dlls">
 	  <include name="${source-root}/**/*.Test.dll" />
 	  <include name="${source-root}/**/*.Tests.dll" />
 	  <exclude name="${source-root}/**/*Integration*.dll" />
 	  <exclude name="${source-root}/**/*.Selenium*.dll" />
 	</fileset>
 	
+	<call target="run-tests"/>
+  </target>          
+  
+  <target name="run-integration-tests">
+	<fileset id="test-dlls">
+	  <include name="${source-root}/**/*Integration.Test.dll" />
+	  <include name="${source-root}/**/*Integration.Tests.dll" />
+	</fileset>
+	
+	<call target="run-tests"/>
+  </target> 
+  
+  <target name="run-selenium-tests">
+	<fileset id="test-dlls">
+	  <include name="${source-root}/**/*Selenium.Test.dll" />
+	  <include name="${source-root}/**/*Selenium.Tests.dll" />
+	</fileset>
+	
+	<call target="run-tests"/>
+  </target>   
+  
+  <target name="run-tests">
 	<foreach item="File" property="test-dll">
 	  <in>
-		<items refid="unit-test-dlls" />
+		<items refid="test-dlls" />
 	  </in>
 	  <do>
 		<echo message="Running tests in ${test-dll}" />
@@ -20,6 +42,7 @@
 		  <arg value="${test-dll}" />      
 		</exec>		
 	  </do>
-	</foreach>
-  </target>          
+	</foreach>  
+  </target>
 </project>
+
