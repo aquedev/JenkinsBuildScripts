@@ -1,7 +1,11 @@
 <project name="Analyse" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
+  <loadtasks assembly="C:\Program Files\NCover\Build Task Plugins\NCover.NAntTasks.dll"/>
+ 
   <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
   <property name="source-root" value="src" overwrite="false"/>
-  
+  <property name="NCover.exe" value="C:\Program Files\NCover\ncover.console.exe" />
+  <property name="testRunnerArgs" value=" " />
+   
  <target name="run-unit-tests">    
 	<fileset id="test-dlls">
 	  <include name="${source-root}/**/*.Test.dll" />
@@ -42,7 +46,35 @@
 		  <arg value="${test-dll}" />      
 		</exec>		
 	  </do>
-	</foreach>  
+	</foreach>
+
+	<call target="coverage"/>
   </target>
+
+	<target name="coverage" description="Generate code coverage using NCover">
+	
+		<foreach item="File" property="test-dlls">
+		  <in>
+			<items refid="test.assemblies"></items>
+		  </in>
+		  <do>
+			<property name="testRunnerArgs" value="${testRunnerArgs} &quot;${test-dlls}&quot;"></property>
+			<property name="excludeAssemblies" value="${excludeAssemblies};${path::get-file-name(test-dlls)}"></property>
+		  </do>
+		</foreach>
+		
+		<echo message="TestRunnerArgs: ${testRunnerArgs}"></echo>
+		 
+		<ncover testRunnerExe="${test-runner-path}"
+			testRunnerArgs="${testRunnerArgs}"
+			workingDirectory="${source-root}"
+			appendTrendTo="coverage.trend"
+			htmlReportDir="${source-root}\NCoverReport"
+			logLevel="Verbose"
+			onlyAssembliesWithSource="True"
+			projectName="ProjectName"    />
+			
+    </target>
+  
 </project>
 
