@@ -68,7 +68,7 @@
 		
 		<mkdir dir="${source-root}/NCoverReport" />
 		 
-		<ncover testRunnerExe="${project::get-base-directory()}\${test-runner-path}"
+		<ncover testRunnerExe="&quot;${project::get-base-directory()}\${test-runner-path}&quot;"
 			testRunnerArgs="${testRunnerArgs}"
 			workingDirectory="${source-root}"
 			appendTrendTo="coverage.trend"
