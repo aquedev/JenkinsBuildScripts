@@ -64,10 +64,10 @@
 		</foreach>
 		
 		<echo message="TestRunnerArgs: ${testRunnerArgs}"></echo>
-		<echo message="TestRunnerEXE: directory::get-current-directory()\test-runner-path}"></echo>
+		<echo message="TestRunnerEXE: ${basedir}\test-runner-path}"></echo>
 		<mkdir dir="${source-root}/NCoverReport" />
 		 
-		<ncover testRunnerExe="directory::get-current-directory()\${test-runner-path}"
+		<ncover testRunnerExe="${basedir}\${test-runner-path}"
 			testRunnerArgs="${testRunnerArgs}"
 			workingDirectory="${source-root}"
 			appendTrendTo="coverage.trend"
