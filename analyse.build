@@ -53,17 +53,19 @@
 
 	<target name="coverage" description="Generate code coverage using NCover">
 	
-		<foreach item="File" property="test-dlls">
+	
+		<foreach item="File" property="test-dll">
 		  <in>
-			<items refid="test.assemblies"></items>
+			<items refid="test-dlls"></items>
 		  </in>
 		  <do>
-			<property name="testRunnerArgs" value="${testRunnerArgs} &quot;${test-dlls}&quot;"></property>
+			<property name="testRunnerArgs" value="${testRunnerArgs} &quot;${test-dll}&quot;"></property>
 			<property name="excludeAssemblies" value="${excludeAssemblies};${path::get-file-name(test-dlls)}"></property>
 		  </do>
 		</foreach>
 		
 		<echo message="TestRunnerArgs: ${testRunnerArgs}"></echo>
+		<mkdir dir="${source-root}/NCoverReport" />
 		 
 		<ncover testRunnerExe="${test-runner-path}"
 			testRunnerArgs="${testRunnerArgs}"
