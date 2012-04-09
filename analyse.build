@@ -60,7 +60,6 @@
 		  </in>
 		  <do>
 			<property name="testRunnerArgs" value="${testRunnerArgs} &quot;${test-dll}&quot;"></property>
-			<property name="excludeAssemblies" value="${excludeAssemblies};${path::get-file-name(test-dlls)}"></property>
 		  </do>
 		</foreach>
 		
