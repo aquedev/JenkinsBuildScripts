@@ -1,7 +1,7 @@
 <project name="Analyse" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
   <loadtasks assembly="C:\Program Files\NCover\Build Task Plugins\NCover.NAntTasks.dll"/>
  
-  <property name="test-runner-path" value="tools\nunit\nunit-console.exe" overwrite="false"/>
+  <property name="test-runner-path" value="tools\nunit\nunit-console-x86.exe" overwrite="false"/>
   <property name="source-root" value="src" overwrite="false"/>
   <property name="NCover.exe" value="C:\Program Files\NCover\ncover.console.exe" />
   <property name="testRunnerArgs" value=" " />
